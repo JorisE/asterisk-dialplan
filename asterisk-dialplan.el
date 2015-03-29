@@ -23,13 +23,13 @@
 ;; the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.; Copyright (C) 2003-2014 Free Software Foundation, Inc.
 
 ;;; Commentary:
-;; Using helm-imenu you will jump directly to the section under po
+;; Using helm-imenu you will jump directly to the section under point.
 
 ;;; Code:
 ;;;###autoload
-(add-to-list 'auto-mode-alist (cons (purecopy "\\extensions.conf\\'")  'dialplan-mode))
+(add-to-list 'auto-mode-alist (cons (purecopy "\\extensions.conf\\'")  'asterisk-dialplan-mode))
 
-(defvar dialplan-mode-hook nil)
+(defvar asterisk-dialplan-mode-hook nil)
 
 
 ;; Bindings
@@ -151,12 +151,13 @@
     (nil "^\\[\\(.+\\)\\]$" 1)
   ))
 
+
 ;; TODO: add menu entry
 
 ;; setup
 
-(listp dialplan--imenu-generic-expression)
-(define-derived-mode dialplan-mode conf-mode "Dialpan"
+;;;###autoload
+(define-derived-mode asterisk-dialplan-mode text-mode "Dialpan"
   "Major mode for editing Asterisk dialplan files.
 
 \\{dialplan-mode-map}"
@@ -164,5 +165,5 @@
   (set (make-local-variable 'imenu-generic-expression) dialplan--imenu-generic-expression)
 )
 
-(provide 'dialplan)
+(provide 'asterisk-dialplan)
 ;;; asterisk-dialplan.el ends here
