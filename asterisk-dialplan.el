@@ -66,9 +66,10 @@
            "SetCIDNum" "SetGlobalVar" "SetLanguage" "SetMusicOnHold" "Set"
            "SetVar" "SIPDtmfMode" "SoftHangup" "StopMonitor" "StopPlaytones"
            "StripLSD" "StripMSD" "SubString" "Suffix" "Swift" "System"
-           "Transfer" "VoiceMail" "Voicemail" "VoiceMail2" "VoiceMailMain"
-           "VoicemailMain" "VoiceMailMain2" "Wait" "WaitExten" "WaitForRing"
-           "WaitMusicOnHold" "Zapateller""ZapBarge" "ZapRAS" "ZapScan")
+           "Transfer" "Verbose" "VoiceMail" "Voicemail" "VoiceMail2"
+           "VoiceMailMain" "VoicemailMain" "VoiceMailMain2" "Wait" "WaitExten"
+           "WaitForRing" "WaitMusicOnHold" "Zapateller""ZapBarge" "ZapRAS"
+           "ZapScan")
           symbol-end))
 
 (defvar asterisk-dialplan-functions
