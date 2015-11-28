@@ -23,7 +23,11 @@
 ;; the Free Software Foundation, 675 Mass Ave, Cambridge, MA 02139, USA.; Copyright (C) 2003-2014 Free Software Foundation, Inc.
 
 ;;; Commentary:
-;; Using helm-imenu you will jump directly to the section under point.
+;; asterisk-dialplan-mode adds some syntax highlighting, but is currently not
+;; extensive in that respect.
+;; The main benefit is to be had from navigation using imenu. Every context is
+;; added to imenu and using helm-imenu will easily let you navigate to the
+;; context at point.
 
 ;;; Code:
 ;;;###autoload
@@ -119,38 +123,38 @@
            "VOLUME")
           symbol-end))
 
-(defconst dialplan-font-lock-keywords
+;; Matches exten => or same =>.
+(defvar exten-same (rx (group line-start (zero-or-more whitespace) (or "exten" "same") (zero-or-more whitespace) "=>" (zero-or-more whitespace))))
+
+;; matches anything that leads up to the next comma ",".
+(defvar extension-or-priority (rx (group (1+ (not (any ",")))) ","))
+
+(defvar dialplan-font-lock-keywords
   `(
     ;; comments
+    ;; TODO: wrapping does not work with comments
     (";.*" . font-lock-comment-face)
     ;; section
     (,(rx line-start "[" (1+ any) "]") . font-lock-function-name-face)
-    ;; ("^\[[a-zA-Z0-9-_]+\]" . font-lock-function-name-face)
     ;; globals
     (,(rx line-start (group (1+ (or word ?_))) "=")  (1 font-lock-constant-face))
-    ;; Exten
-    (,(rx line-start (0+ whitespace) (or "exten =>" "same =>") ) . font-lock-constant-face)
+    ;; exten => or same =>
+    (,exten-same . font-lock-constant-face)
     ;; extension
-    ;; TODO: rewrite to use rx
-    ("^[ ]?\\(exten =>\\|same =>\\)\\(.+\\)\\(,[[:digit:]]\\|,n\\)\\(,\\|(\\)[[:alpha:]].+" 2 font-lock-variable-name-face)
-    ;; priority (and label)
-    ;; TODO: can labels have none :alpha: chars?
-    ;; TODO: rewrite to use rx
-    ("^[ ]?\\(exten =>\\|same =>\\)\\(.+\\)\\(\\(,[[:digit:]]\\|,n\\)\\(([[:alpha:]]+)\\)?\\),.+" 3 font-lock-function-name-face)
+    (,(concat exten-same extension) (2 font-lock-variable-name-face))
+    ;; priority
+    (,(concat exten-same extension extension) (3 font-lock-type-face))
+    ;; Asterisk dialplan applications
     (,asterisk-dialplan-applications . font-lock-keyword-face)
+    ;; Asteisk dialplan functions
     (,asterisk-dialplan-functions . font-lock-function-name-face)
-    ;; FIXME: is it possible to give all contexts a face?
-    ;; any section that starts with an exten?
 ))
 
 
 ;; imenu
 
 (defvar dialplan--imenu-generic-expression
-  '(
-    ;; TODO: add globals and entries in [general]?
-    (nil "^\\[\\(.+\\)\\]$" 1)
-  ))
+  `((nil ,(rx line-start "[" (group (1+ any)) "]" (* any)) 1)))
 
 
 ;; TODO: add menu entry
