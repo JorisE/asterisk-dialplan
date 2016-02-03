@@ -141,9 +141,9 @@
     ;; exten => or same =>
     (,exten-same . font-lock-constant-face)
     ;; extension
-    (,(concat exten-same extension) (2 font-lock-variable-name-face))
+    (,(concat exten-same extension-or-priority) (2 font-lock-variable-name-face))
     ;; priority
-    (,(concat exten-same extension extension) (3 font-lock-type-face))
+    (,(concat exten-same extension-or-priority extension-or-priority) (3 font-lock-type-face))
     ;; Asterisk dialplan applications
     (,asterisk-dialplan-applications . font-lock-keyword-face)
     ;; Asteisk dialplan functions
@@ -162,7 +162,7 @@
 ;; setup
 
 ;;;###autoload
-(define-derived-mode asterisk-dialplan-mode text-mode "Dialpan"
+(define-derived-mode asterisk-dialplan-mode conf-mode "Dialpan"
   "Major mode for editing Asterisk dialplan files.
 
 \\{dialplan-mode-map}"
