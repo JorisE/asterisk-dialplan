@@ -132,7 +132,6 @@
 (defvar dialplan-font-lock-keywords
   `(
     ;; comments
-    ;; TODO: wrapping does not work with comments
     (";.*" . font-lock-comment-face)
     ;; section
     (,(rx line-start "[" (1+ any) "]") . font-lock-function-name-face)
@@ -168,6 +167,7 @@
 \\{dialplan-mode-map}"
   (set (make-local-variable 'font-lock-defaults) '(dialplan-font-lock-keywords))
   (set (make-local-variable 'imenu-generic-expression) dialplan--imenu-generic-expression)
+  (set (make-local-variable 'comment-start) "; ")
 )
 
 (provide 'asterisk-dialplan)
