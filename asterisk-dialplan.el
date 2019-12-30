@@ -161,7 +161,7 @@
 ;; setup
 
 ;;;###autoload
-(define-derived-mode asterisk-dialplan-mode conf-mode "Dialpan"
+(define-derived-mode asterisk-dialplan-mode conf-mode "Dialplan"
   "Major mode for editing Asterisk dialplan files.
 
 \\{dialplan-mode-map}"
